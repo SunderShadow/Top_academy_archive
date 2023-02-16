@@ -1,0 +1,3 @@
+﻿  Matrix.cpp
+D:\Github\Archive_bv_225\Matrix\Matrix\Matrix.cpp(45,1): error C2109: для индекса требуется массив или указатель
+D:\Github\Archive_bv_225\Matrix\Matrix\Matrix.cpp(64,11): message : выполняется компиляция ссылки на экземпляр шаблон функции "Matrix<3,3> &operator +<3,3>(Matrix<3,3> &,Matrix<3,3> &)"

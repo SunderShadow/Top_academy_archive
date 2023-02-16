@@ -1,0 +1,4 @@
+﻿  String.cpp
+D:\Github\Oop_bv_225\String\String\String.cpp(81,1): warning C4267: =: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+D:\Github\Oop_bv_225\String\String\String.cpp(116,21): warning C4018: <: несоответствие типов со знаком и без знака
+  String.vcxproj -> D:\Github\Oop_bv_225\String\x64\Debug\String.exe
