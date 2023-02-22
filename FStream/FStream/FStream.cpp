@@ -33,8 +33,6 @@ void trim(std::string& s)
 
 class HandlerString
 {
-    static const unsigned short IP_V_4_STR_MAX_SIZE = 15;     // 255.255.255.255; (4 * 3) digits + 3 dots
-    static const unsigned short BYTE_RIGHT_STR_MAX_SIZE = 17; // 00-19-99-b4-c2-ae; (6 * 2) chars + 5 dashes
 protected:
     std::string readIpV4(const std::string str)
     {
