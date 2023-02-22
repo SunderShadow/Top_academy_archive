@@ -77,11 +77,21 @@ protected:
     void openDist(std::ofstream& stream)
     {
         stream.open(this->dist_filepath);
+
+        if (!stream.is_open()) {
+            std::cerr << "Distination filepath is wrong";
+            exit(0);
+        }
     }
     
     void openSrc(std::ifstream& stream)
     {
         stream.open(this->src_filepath);
+
+        if (!stream.is_open()) {
+            std::cerr << "Source filepath is wrong";
+            exit(0);
+        }
     }
 
     void virtual writeFile(std::ofstream& dist_stream, const HandledString& str)
