@@ -62,7 +62,7 @@ public:
     {
         int integer = num;
         double remainder = num - integer;
-
+    }
     // -------
     // Setters
     

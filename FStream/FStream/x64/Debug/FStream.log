@@ -1,0 +1,4 @@
+﻿  FStream.cpp
+D:\Github\Archive_bv_225\FStream\FStream\FStream.cpp(22,21): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Github\Archive_bv_225\FStream\FStream\FStream.cpp(50,1): warning C4267: инициализация: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+  FStream.vcxproj -> D:\Github\Archive_bv_225\FStream\x64\Debug\FStream.exe

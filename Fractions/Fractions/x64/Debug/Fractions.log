@@ -1,2 +1,4 @@
 ﻿  Fractions.cpp
-  Fractions.vcxproj -> D:\Github\Oop_bv_225\Fractions\x64\Debug\Fractions.exe
+D:\Github\Archive_bv_225\Fractions\Fractions\Fractions.cpp(63,21): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\Github\Archive_bv_225\Fractions\Fractions\Fractions.cpp(367,14): error C2374: B: переопределение; множественная инициализация
+D:\Github\Archive_bv_225\Fractions\Fractions\Fractions.cpp(361,14): message : см. объявление "B"

@@ -139,7 +139,7 @@ public:
 int main()
 {
     Human h("Alexandr", "Shvedov", humanBirthDate(2005, 4, 17));
-
+    
     Student hStudent(h, "IT", "BV_225", 12, 100);
     cout << h.age();
 }
