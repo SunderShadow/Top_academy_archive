@@ -23,7 +23,10 @@
     <Text Include="Src.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
-    <Text Include="Dist.txt">
+    <Text Include="Dist_1.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="Dist_2.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
   </ItemGroup>

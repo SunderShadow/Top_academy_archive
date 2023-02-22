@@ -5,10 +5,7 @@
 void trim(std::string& s)
 {
     int i = 0, j;
-    while ((s[i] == ' ') || (s[i] == '\t'))
-    {
-        i++;
-    }
+    while (s[i] == ' ' || s[i] == '\t') i++;
 
     if (i > 0)
     {
@@ -16,25 +13,18 @@ void trim(std::string& s)
         {
             s[j] = s[j + i];
         }
+
         s[j] = '\0';
     }
 
     i = s.size() - 1;
-    while ((s[i] == ' ') || (s[i] == '\t'))
-    {
-        i--;
-    }
 
-    if (i < (s.size() - 1))
-    {
-        s[i + 1] = '\0';
-    }
+    while (s[i] == ' ' || (s[i--] == '\t'));
+    if (i < s.size() - 1) s[i + 1] = '\0';
 }
 
-class HandlerString
+class HandledString
 {
-    static const unsigned short IP_V_4_STR_MAX_SIZE = 15;     // 255.255.255.255; (4 * 3) digits + 3 dots
-    static const unsigned short BYTE_RIGHT_STR_MAX_SIZE = 17; // 00-19-99-b4-c2-ae; (6 * 2) chars + 5 dashes
 protected:
     std::string readIpV4(const std::string str)
     {
@@ -59,25 +49,25 @@ protected:
         trim(str);
 
         this->ipv4 = readIpV4(str);
-        this->byte = readBytePart(str);
+        this->mac = readBytePart(str);
     }
 public:
     std::string ipv4;
-    std::string byte;
+    std::string mac;
 
-    HandlerString(const std::string str)
+    HandledString(const std::string str)
     {
         this->disassemble(str);
     };
     
-    std::string assemble(int space_count = 1)
+    std::string assemble(int space_count = 1)const
     {
-        return this->ipv4 + std::string(space_count, ' ') + this->byte;
+        return this->ipv4 + std::string(space_count, ' ') + this->mac;
     }
 
-    std::string assemble_reverse(int space_count = 1)
+    std::string assemble_reverse(int space_count = 1)const
     {
-        return this->byte + std::string(space_count, ' ') + this->ipv4;
+        return this->mac + std::string(space_count, ' ') + this->ipv4;
     }
 };
 
@@ -94,8 +84,13 @@ protected:
         stream.open(this->src_filepath);
     }
 
+    void virtual writeFile(std::ofstream& dist_stream, const HandledString& str)
+    {
+        dist_stream << str.assemble_reverse(6) << std::endl;
+    }
 public:
     std::string dist_filepath, src_filepath;
+
     FileHandler(const std::string dist_filepath, const std::string src_filepath)
     {
         this->dist_filepath = dist_filepath;
@@ -116,9 +111,8 @@ public:
         {
             src_stream.getline(line, 256);
 
-            HandlerString handled_string((std::string)line);
-
-            dist_stream << handled_string.assemble_reverse(6) << std::endl;
+            HandledString handled_string((std::string)line);
+            this->writeFile(dist_stream, handled_string);
         }
 
         src_stream.close();
@@ -126,13 +120,44 @@ public:
     }
 };
 
+class SecondFileHandler : public FileHandler
+{
+public:
+    SecondFileHandler(const std::string dist_filepath, const std::string src_filepath): FileHandler(dist_filepath, src_filepath)
+    {
+    }
+protected:
+    void writeFile(std::ofstream& dist_stream, const HandledString& str)
+    {
+        std::string ipv4(str.ipv4);
+        std::string mac(str.mac);
+
+        for (int i = 0; i < mac.size(); i++)
+        {
+            if (mac[i] == '-') mac[i] = ':';
+        }
+
+        dist_stream
+            << "host 201-" << 1 << std::endl
+            << '{' << std::endl
+            << '\t' << "hardware ethernet" << '\t' << mac << std::endl
+            << '\t' << "fixed-address" << '\t' << '\t' << ipv4 << std::endl
+            << '}' << std::endl
+            << std::endl;
+    }
+};
+
 int main()
 {
-    const char DIST_FILEPATH[] = "Dist.txt";
-    const char SRC_FILEPATH[] = "Src.txt";
+    const std::string DIST_FILEPATH_1 = "Dist_1.txt";
+    const std::string DIST_FILEPATH_2 = "Dist_2.txt";
+    const std::string SRC_FILEPATH    = "Src.txt";
 
-    FileHandler handler(DIST_FILEPATH, SRC_FILEPATH);
+    FileHandler handler(DIST_FILEPATH_1, SRC_FILEPATH);
+    SecondFileHandler secondFileHandler(DIST_FILEPATH_2, SRC_FILEPATH);
 
     handler.handle();
+    secondFileHandler.handle();
+
     return 0;
 }

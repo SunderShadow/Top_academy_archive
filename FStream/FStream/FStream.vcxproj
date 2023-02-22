@@ -130,7 +130,8 @@
     <ClCompile Include="FStream.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Dist.txt" />
+    <Text Include="Dist_1.txt" />
+    <Text Include="Dist_2.txt" />
     <Text Include="Src.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
